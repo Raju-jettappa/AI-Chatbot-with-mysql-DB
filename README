@@ -1,115 +1,94 @@
-MySQL Database AI Chatbot with Ollama + LangChain + Streamlit
-Interact with your own MySQL database using natural language! This project uses Streamlit for the chat UI, Ollama to run an LLM locally (with support for quantized models), and LangChain to handle prompt engineering and connection logic.
+AI Chatbot with MySQL Database
+Interact naturally with your MySQL database via a conversational AI chatbot built using Streamlit, LangChain, and Ollama.
 
 Features
-Conversational Chatbot UI powered by Streamlit
+Conversational chatbot UI built on Streamlit
 
-Natural Language to SQL using an LLM run locally via Ollama
+Natural language to SQL query generation powered by Ollama LLM
 
-MySQL database connection using LangChain
+Executes validated SQL queries safely on your MySQL database
 
-Automatic SQL validation (no accidental plain-English queries sent to database)
+Uses quantized LLM models for low-memory environments
 
-Works on low-memory computers by using quantized models (llama3-q4)
+Handles database connection dynamically from UI input
 
-Installation & Setup
-1. Clone the Repository
+Graceful error handling for invalid queries or connection failures
+
+Prerequisites
+Python 3.8 or higher
+
+MySQL or MariaDB database server
+
+Ollama LLM server installed and running
+
+Basic familiarity with running Python and Streamlit apps
+
+Installation
+Clone the repository:
+
 bash
-git clone https://github.com/yourusername/mysql-ai-chatbot.git
-cd mysql-ai-chatbot
-2. Install Python & Create Virtual Environment
-Make sure you have Python 3.8+ installed.
+git clone https://github.com/Raju-jettappa/AI-Chatbot-with-mysql-DB.git
+cd AI-Chatbot-with-mysql-DB
+Create and activate a Python virtual environment:
 
 bash
 python3 -m venv venv
 # On Windows:
 venv\Scripts\activate
-# On Linux/Mac:
+# On Linux/macOS:
 source venv/bin/activate
-3. Install Python Dependencies
+Install required Python packages:
+
 bash
 pip install streamlit langchain-ollama langchain-community mysql-connector-python
-4. Install Ollama LLM Server
-Ollama lets you run open-source large language models locally on your computer.
+Install Ollama:
 
-Windows/Mac/Linux:
+Download and install Ollama from https://ollama.com/download for your OS
 
-Visit https://ollama.com/download and download the installer for your OS.
-
-Run the installer and start Ollama.
-
-5. Pull a Quantized Model (Low RAM)
-Recommended: Use a quantized (small footprint) version of Llama3:
-
-bash
-ollama pull llama3-q4
-You can also list available models with:
-
-bash
-ollama list
-Troubleshooting:
-If you see a memory error, choose a smaller or quantized model (like llama3-q4 instead of full llama3).
-If Ollama is not recognized as a command, ensure it's running and added to your system PATH.
-
-6. MySQL Database
-If you don’t have a database, install MySQL/MariaDB and create one:
-
-bash
-# On Ubuntu (example)
-sudo apt-get install mysql-server
-mysql -u root
-CREATE DATABASE your_database;
-Populate with sample tables as needed, or use your own.
-
-How to Run
-Start Ollama in the background (if not auto-started):
+Start Ollama server if not auto-started:
 
 bash
 ollama serve
-Run the Streamlit app from your project directory:
+Pull a quantized Llama3 model with reduced memory usage:
+
+bash
+ollama pull llama3-q4
+Usage
+Run the app using Streamlit:
 
 bash
 streamlit run main.py
-Visit the URL provided (usually http://localhost:8501).
+Enter your MySQL database credentials in the sidebar and click Connect.
 
-App Usage
-Connect to Database: Enter your MySQL credentials in the sidebar (host, port, username, password, database) and click "Connect".
+Type your questions in natural language in the chat box.
 
-Ask Questions: Type your query in natural language. The app will process it using the LLM, generate SQL, execute it on your DB, and reply in conversational language.
+The chatbot translates your question into a validated SQL query, executes it, and returns results in natural language.
 
-Project Files Overview
-main.py : Main Streamlit app
+How It Works
+The app connects dynamically to your database based on input credentials.
 
-requirements.txt : List of Python dependencies
+Uses LangChain with Ollama's quantized LLM (llama3-q4) to convert user queries into SQL.
 
-README.md : This documentation
+Validates generated SQL queries before execution to prevent errors.
 
-Optionally: sample database SQL or schema
+Converts SQL query results back to human-readable answers via the same LLM.
 
-Advanced Configuration
-Modify the model in main.py (llama3-q4) to use other models supported by Ollama if you have more memory.
-
-Tweak LLM prompts in main.py to better fit your schema or improve SQL generation accuracy.
+Implements session state to maintain persistent database connection across interactions.
 
 Troubleshooting
-Common errors and solutions:
+Connection errors: Double-check database credentials and ensure MySQL is running.
 
-Database connection error: Double-check credentials and that your MySQL/MariaDB server is running.
+Ollama memory errors: Use quantized models (like llama3-q4), or close other memory-intensive applications.
 
-Ollama memory error: Use a quantized model (e.g. llama3-q4).
+Invalid SQL generation: If the LLM cannot generate valid SQL, the app notifies you; try rephrasing your question.
 
-LLM returning non-SQL text: The app will show a clear error. Try rephrasing your question.
+Streamlit warnings: Always run the app with streamlit run main.py, not python main.py.
 
 Contributing
-Contributions and suggestions are welcome!
-Feel free to open issues or submit pull requests for improvements.
+Contributions are welcome! Please fork the repo and submit pull requests or open issues for bugs/features.
 
 License
-MIT License (or your preferred license)
+This project is licensed under the MIT License.
 
-Credits
-LangChain
-
-Ollama
-
-Streamlit
+Acknowledgements
+Inspired by Bitfumes' tutorial on building LLM-driven MySQL chatbots and the LangChain & Ollama ecosystems.
