@@ -1,0 +1,115 @@
+MySQL Database AI Chatbot with Ollama + LangChain + Streamlit
+Interact with your own MySQL database using natural language! This project uses Streamlit for the chat UI, Ollama to run an LLM locally (with support for quantized models), and LangChain to handle prompt engineering and connection logic.
+
+Features
+Conversational Chatbot UI powered by Streamlit
+
+Natural Language to SQL using an LLM run locally via Ollama
+
+MySQL database connection using LangChain
+
+Automatic SQL validation (no accidental plain-English queries sent to database)
+
+Works on low-memory computers by using quantized models (llama3-q4)
+
+Installation & Setup
+1. Clone the Repository
+bash
+git clone https://github.com/yourusername/mysql-ai-chatbot.git
+cd mysql-ai-chatbot
+2. Install Python & Create Virtual Environment
+Make sure you have Python 3.8+ installed.
+
+bash
+python3 -m venv venv
+# On Windows:
+venv\Scripts\activate
+# On Linux/Mac:
+source venv/bin/activate
+3. Install Python Dependencies
+bash
+pip install streamlit langchain-ollama langchain-community mysql-connector-python
+4. Install Ollama LLM Server
+Ollama lets you run open-source large language models locally on your computer.
+
+Windows/Mac/Linux:
+
+Visit https://ollama.com/download and download the installer for your OS.
+
+Run the installer and start Ollama.
+
+5. Pull a Quantized Model (Low RAM)
+Recommended: Use a quantized (small footprint) version of Llama3:
+
+bash
+ollama pull llama3-q4
+You can also list available models with:
+
+bash
+ollama list
+Troubleshooting:
+If you see a memory error, choose a smaller or quantized model (like llama3-q4 instead of full llama3).
+If Ollama is not recognized as a command, ensure it's running and added to your system PATH.
+
+6. MySQL Database
+If you don’t have a database, install MySQL/MariaDB and create one:
+
+bash
+# On Ubuntu (example)
+sudo apt-get install mysql-server
+mysql -u root
+CREATE DATABASE your_database;
+Populate with sample tables as needed, or use your own.
+
+How to Run
+Start Ollama in the background (if not auto-started):
+
+bash
+ollama serve
+Run the Streamlit app from your project directory:
+
+bash
+streamlit run main.py
+Visit the URL provided (usually http://localhost:8501).
+
+App Usage
+Connect to Database: Enter your MySQL credentials in the sidebar (host, port, username, password, database) and click "Connect".
+
+Ask Questions: Type your query in natural language. The app will process it using the LLM, generate SQL, execute it on your DB, and reply in conversational language.
+
+Project Files Overview
+main.py : Main Streamlit app
+
+requirements.txt : List of Python dependencies
+
+README.md : This documentation
+
+Optionally: sample database SQL or schema
+
+Advanced Configuration
+Modify the model in main.py (llama3-q4) to use other models supported by Ollama if you have more memory.
+
+Tweak LLM prompts in main.py to better fit your schema or improve SQL generation accuracy.
+
+Troubleshooting
+Common errors and solutions:
+
+Database connection error: Double-check credentials and that your MySQL/MariaDB server is running.
+
+Ollama memory error: Use a quantized model (e.g. llama3-q4).
+
+LLM returning non-SQL text: The app will show a clear error. Try rephrasing your question.
+
+Contributing
+Contributions and suggestions are welcome!
+Feel free to open issues or submit pull requests for improvements.
+
+License
+MIT License (or your preferred license)
+
+Credits
+LangChain
+
+Ollama
+
+Streamlit
